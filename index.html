@@ -105,11 +105,24 @@
         const Smile = (props) => (
             <IconBase {...props}><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></IconBase>
         );
+        const ExternalLink = (props) => (
+            <IconBase {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></IconBase>
+        );
 
         // --- Main Component ---
         const NewsDashboard = () => {
             // ข้อมูลข่าวสาร
             const newsData = [
+                {
+                    id: 2,
+                    title: "รับสมัครเด็กเล็ก ปีการศึกษา 2569",
+                    date: "20 กุมภาพันธ์ 2569",
+                    views: 45,
+                    author: "แอดมินระบบ",
+                    content: "รับสมัครเด็กเล็กเพื่อเข้าเรียนในศูนย์พัฒนาเด็กเล็กเทศบาลตำบลหัวดง ประจำปีการศึกษา 2569\n\n• วันรับสมัคร: บัดนี้จนถึงวันที่ 31 มีนาคม 2569\n• มอบตัว: ในวันที่ 1 เมษายน 2569 (เวลา 08.00 น. เป็นต้นไป)\n• เปิดเรียน: วันจันทร์ที่ 18 พฤษภาคม 2569",
+                    images: [],
+                    link: "https://drive.google.com/drive/folders/1jz4szFjJlX1HelKRmwJ1NhLqJtaV3wpB?usp=sharing"
+                },
                 {
                     id: 1,
                     title: "รับการตรวจเยี่ยม ประเมินผล ห้องเรียนปลอดฝุ่น",
@@ -274,8 +287,23 @@
                                             </div>
                                         </div>
 
+                                        {/* Link Section สำหรับข่าวที่มีลิงก์เพิ่มเติม */}
+                                        {selectedNews.link && (
+                                            <div className="mb-8 p-5 bg-orange-50 rounded-3xl border-2 border-orange-200 border-dashed flex flex-col items-center text-center mx-2">
+                                                <p className="text-slate-700 font-bold mb-3">ดูรายละเอียดเพิ่มเติม / ดาวน์โหลดเอกสาร</p>
+                                                <a 
+                                                    href={selectedNews.link} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-bold flex items-center shadow-lg transition-transform hover:-translate-y-1 active:scale-95"
+                                                >
+                                                    คลิกดูรายละเอียด <ExternalLink size={18} className="ml-2" />
+                                                </a>
+                                            </div>
+                                        )}
+
                                         {/* Scrollable Image Gallery */}
-                                        {selectedNews.images.length > 0 && (
+                                        {selectedNews.images && selectedNews.images.length > 0 && (
                                             <div className="mt-8 relative -mx-4 px-4">
                                                 <div className="flex items-center justify-between mb-4 px-2">
                                                     <h3 className="font-bold text-slate-700 flex items-center text-lg">

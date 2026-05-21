@@ -15,7 +15,7 @@
     <!-- นำเข้า Babel สำหรับแปลง JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Google Fonts (Optional: เพื่อความสวยงามเหมือนในตัวอย่าง) -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
@@ -23,7 +23,6 @@
             font-family: 'Sarabun', sans-serif;
         }
         
-        /* Custom Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -42,7 +41,6 @@
             animation: slideUp 0.3s ease-out forwards;
         }
 
-        /* Hide Scrollbar */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -60,59 +58,43 @@
         const { useState, useRef } = React;
 
         // --- ส่วนประกอบไอคอน (SVG Components) ---
-        // สร้างไอคอนขึ้นมาเองเพื่อให้ใช้งานได้โดยไม่ต้อง Import library
         const IconBase = ({ size = 24, className = "", children }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className={className}
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {children}
             </svg>
         );
 
-        const Calendar = (props) => (
-            <IconBase {...props}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></IconBase>
-        );
-        const ChevronRight = (props) => (
-            <IconBase {...props}><polyline points="9 18 15 12 9 6"/></IconBase>
-        );
-        const ChevronLeft = (props) => (
-            <IconBase {...props}><polyline points="15 18 9 12 15 6"/></IconBase>
-        );
-        const X = (props) => (
-            <IconBase {...props}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></IconBase>
-        );
-        const ImageIcon = (props) => (
-            <IconBase {...props}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></IconBase>
-        );
-        const Share2 = (props) => (
-            <IconBase {...props}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></IconBase>
-        );
-        const Eye = (props) => (
-            <IconBase {...props}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></IconBase>
-        );
-        const ZoomIn = (props) => (
-            <IconBase {...props}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></IconBase>
-        );
-        const Smile = (props) => (
-            <IconBase {...props}><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></IconBase>
-        );
-        const ExternalLink = (props) => (
-            <IconBase {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></IconBase>
-        );
+        const Calendar = (props) => <IconBase {...props}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></IconBase>;
+        const ChevronRight = (props) => <IconBase {...props}><polyline points="9 18 15 12 9 6"/></IconBase>;
+        const ChevronLeft = (props) => <IconBase {...props}><polyline points="15 18 9 12 15 6"/></IconBase>;
+        const X = (props) => <IconBase {...props}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></IconBase>;
+        const ImageIcon = (props) => <IconBase {...props}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></IconBase>;
+        const Share2 = (props) => <IconBase {...props}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></IconBase>;
+        const Eye = (props) => <IconBase {...props}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></IconBase>;
+        const ZoomIn = (props) => <IconBase {...props}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></IconBase>;
+        const Smile = (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></IconBase>;
+        const ExternalLink = (props) => <IconBase {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></IconBase>;
 
         // --- Main Component ---
         const NewsDashboard = () => {
-            // ข้อมูลข่าวสาร
+            // ข้อมูลข่าวสาร (เรียงจากใหม่สุดไปเก่าสุด)
             const newsData = [
+                {
+                    id: 3,
+                    title: "การประชุมผู้ปกครองศูนย์พัฒนาเด็กเล็กเทศบาลตำบลหัวดง ครั้งที่ 1 ปีการศึกษา 2569",
+                    date: "16 พฤษภาคม 2569 เวลา 09.04 น.",
+                    views: 89,
+                    author: "แอดมินระบบ",
+                    content: "ในวันศุกร์ที่ 15 พฤษภาคม 2569 เวลา 08.30 น. ณ ศูนย์พัฒนาเด็กเล็กเทศบาลตำบลหัวดง กองการศึกษาและศูนย์พัฒนาเด็กเล็ก ได้จัดการประชุมผู้ปกครอง ครั้งที่ 1 ประจำปีการศึกษา 2569 โดยมีวัตถุประสงค์เพื่อสร้างเครือข่ายความร่วมมือระหว่างบ้านและสถานศึกษา โดยเปิดโอกาสให้ครูและผู้ปกครองได้พบปะ แลกเปลี่ยนความคิดเห็น รับทราบแนวนโยบาย กฎระเบียบ และร่วมกันวางแผนดูแลช่วยเหลือนักเรียนให้พัฒนาได้อย่างเต็มศักยภาพ โดยได้รับเกียรติจากท่านเพลิน ศิริเกตุ นายกเทศมนตรีตำบลหัวดง เป็นประธานการประชุม",
+                    images: [
+                        "https://res.cloudinary.com/dygneumft/image/upload/v1779355300/app%20%E0%B8%A8%E0%B8%9E%E0%B8%94%20%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%20%E0%B8%9C%E0%B8%9B%E0%B8%84%201-2569/LINE_ALBUM_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1_%E0%B8%9C%E0%B8%9B%E0%B8%84_12569_260521_8_jqlj6a.jpg",
+                        "https://res.cloudinary.com/dygneumft/image/upload/v1779355300/app%20%E0%B8%A8%E0%B8%9E%E0%B8%94%20%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%20%E0%B8%9C%E0%B8%9B%E0%B8%84%201-2569/LINE_ALBUM_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1_%E0%B8%9C%E0%B8%9B%E0%B8%84_12569_260521_7_jv8tew.jpg",
+                        "https://res.cloudinary.com/dygneumft/image/upload/v1779355300/app%20%E0%B8%A8%E0%B8%9E%E0%B8%94%20%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%20%E0%B8%9C%E0%B8%9B%E0%B8%84%201-2569/LINE_ALBUM_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1_%E0%B8%9C%E0%B8%9B%E0%B8%84_12569_260521_4_ucx8ha.jpg",
+                        "https://res.cloudinary.com/dygneumft/image/upload/v1779355300/app%20%E0%B8%A8%E0%B8%9E%E0%B8%94%20%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%20%E0%B8%9C%E0%B8%9B%E0%B8%84%201-2569/LINE_ALBUM_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1_%E0%B8%9C%E0%B8%9B%E0%B8%84_12569_260521_5_x1mi2l.jpg",
+                        "https://res.cloudinary.com/dygneumft/image/upload/v1779355300/app%20%E0%B8%A8%E0%B8%9E%E0%B8%94%20%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%20%E0%B8%9C%E0%B8%9B%E0%B8%84%201-2569/LINE_ALBUM_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1_%E0%B8%9C%E0%B8%9B%E0%B8%84_12569_260521_3_xwh2m5.jpg",
+                        "https://res.cloudinary.com/dygneumft/image/upload/v1779355299/app%20%E0%B8%A8%E0%B8%9E%E0%B8%94%20%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%20%E0%B8%9C%E0%B8%9B%E0%B8%84%201-2569/LINE_ALBUM_%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1_%E0%B8%9C%E0%B8%9B%E0%B8%84_12569_260521_1_iwq5eq.jpg"
+                    ]
+                },
                 {
                     id: 2,
                     title: "รับสมัครเด็กเล็ก ปีการศึกษา 2569",
@@ -166,7 +148,6 @@
 
             const scrollGallery = (direction) => {
                 if (galleryRef.current) {
-                    // คำนวณระยะเลื่อนตามความกว้างหน้าจอ (ประมาณ 85% ของจอ)
                     const scrollAmount = window.innerWidth * 0.85; 
                     if (direction === 'left') {
                         galleryRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
@@ -270,7 +251,6 @@
 
                                         {/* Content Box */}
                                         <div className="bg-sky-50 p-6 rounded-3xl border-2 border-sky-100 mb-8 relative">
-                                            {/* Decorative Elements */}
                                             <div className="absolute top-0 right-0 -mt-2 -mr-2 w-6 h-6 bg-yellow-300 rounded-full opacity-50"></div>
                                             <div className="absolute bottom-0 left-0 -mb-2 -ml-2 w-4 h-4 bg-pink-300 rounded-full opacity-50"></div>
                                             
